@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="/css/movie.css">
+</head>
+<body>
+	<h2>안녕하세요 여기는 Movie 화면 입니다.</h2>
+	<div id="container">
+		<div class="movie-list">
+			<div class="movie-row">
+				<div class="item">
+					<div id="movie-0" class="poster"></div>
+					<h4 id="movie-title-0" class="title"></h4>
+					<p id="movie-year-0" class="year"></p>
+					<p id="movie-runtime-0" class="year"></p>
+					<p id="movie-ganre-0" class="year"></p>
+				</div>
+				<div class="item">
+					<div id="movie-1" class="poster"></div>
+					<h4 id="movie-title-1" class="title"></h4>
+					<p id="movie-year-1" class="year"></p>
+					<p id="movie-runtime-1" class="year"></p>
+					<p id="movie-ganre-1" class="year"></p>
+				</div>
+				<div class="item">
+					<div id="movie-2" class="poster"></div>
+					<h4 id="movie-title-2" class="title"></h4>
+					<p id="movie-year-2" class="year"></p>
+					<p id="movie-runtime-2" class="year"></p>
+					<p id="movie-ganre-2" class="year"></p>
+				</div>
+				<div class="item">
+					<div id="movie-3" class="poster"></div>
+					<h4 id="movie-title-3" class="title"></h4>
+					<p id="movie-year-3" class="year"></p>
+					<p id="movie-runtime-3" class="year"></p>
+					<p id="movie-ganre-3" class="year"></p>
+				</div>
+				<div class="item">
+					<div id="movie-4" class="poster"></div>
+					<h4 id="movie-title-4" class="title"></h4>
+					<p id="movie-year-4" class="year"></p>
+					<p id="movie-runtime-4" class="year"></p>
+					<p id="movie-ganre-4" class="year"></p>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+<script
+    src="https://code.jquery.com/jquery-3.6.1.js"
+    integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI="
+    crossorigin="anonymous"
+  ></script>
+  <script type="text/javascript">
+  function callMyAPI(){
+      $.ajax({
+    	 url: '/api/v1/movies',
+    	 type: 'GET',
+    	 dataType: 'json',
+    	 success: function (response){
+    		 for(var i=0; i<response.length; i++){
+    			 $('#movie-title-' + i).append(response[i].title);
+    			 $('#movie-year-' + i).append(response[i].year);
+    			 $('#movie-runtime-' + i).append(response[i].runtime);
+    			 $('#movie-ganre-' + i).append(response[i].ganre);
+    		 }
+    	 }
+      });
+  }
+  callMyAPI();
+  </script>
+</html>

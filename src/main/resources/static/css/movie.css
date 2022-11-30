@@ -1,0 +1,39 @@
+body{
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+}
+#container{
+	width: 100%;
+	height: auto;
+}
+.movie-list{
+	padding: 20px;
+	background-color: #141414;
+}
+.title{
+	text-align: center;
+	font-size: 42px;
+}
+.movie-row{
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 50px
+}
+.item{
+	flex-basis: 17%;
+}
+.poster{
+	width: 200px;
+	height: auto;
+}
+.title{
+	margin-top: 20px;
+	margin-bottom: 0;
+	font-size: 22px;
+	color: #fafafa;
+}
+.year{
+	text-align: center;
+	color: #fafafa;
+}

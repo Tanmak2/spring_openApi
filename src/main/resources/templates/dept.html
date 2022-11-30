@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style>
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+</style>
+</head>
+<body>
+	<h2>안녕하세요 여기는 DEPT 화면 입니다.</h2>
+	<table id="dept" border="1">
+		<tr>
+			<td>부서번호</td>
+			<td>부서이름</td>
+			<td>부서위치</td>
+		</tr>
+	</table>
+</body>
+<script
+src="https://code.jquery.com/jquery-3.6.1.js"
+integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI="
+crossorigin="anonymous"
+></script>
+<script type="text/javascript">
+function callMyAPI(){
+    $.ajax({
+  	 url: '/api/v1/dept',
+  	 type: 'GET',
+  	 dataType: 'json',
+  	 success: function (response){
+  		 for(var i=0; i<response.length; i++){
+		 	let tr = $('<tr></tr>');
+			let deptno = $('<td>'+response[i].deptno+'</td>');
+			let dname = $('<td>'+response[i].dname+'</td>');
+			let loc = $('<td>'+response[i].loc+'</td>');
+			tr.append(deptno);
+			tr.append(dname);
+			tr.append(loc);
+			$('#dept').append(tr);
+  		 }
+  	 }
+    });
+}
+callMyAPI();
+</script>
+</html>
