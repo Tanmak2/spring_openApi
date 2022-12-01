@@ -23,7 +23,21 @@ tr:nth-child(even) {
 </head>
 <body>
 	<h2>안녕하세요 여기는 DEPT 화면 입니다.</h2>
-	<table id="dept" border="1">
+	<input id="deptno" type="text" placeholder="부서번호를 입력하세요.">
+	<input id="dname" type="text" placeholder="부서이름을 입력하세요.">
+	<input id="loc" type="text" placeholder="부서위치를 입력하세요.">
+	<button type="button" onclick="join()">부서 추가</button>
+	
+	<h3>부서삭제</h3>
+	<input type="text" id="d_deptno" placeholder="부서번호를 입력해주세요">
+	<button type="button" onclick="doDelete()">부서 삭제</button>
+	
+	<h3>부서수정</h3>
+	<input id="u_deptno" type="text" placeholder="부서번호를 입력하세요.">
+	<input id="u_dname" type="text" placeholder="부서이름을 입력하세요.">
+	<input id="u_loc" type="text" placeholder="부서위치를 입력하세요.">
+	<button type="button" onclick="doUpdate()">부서 수정</button>
+	<table id="dept">
 		<tr>
 			<td>부서번호</td>
 			<td>부서이름</td>
@@ -37,6 +51,7 @@ integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI="
 crossorigin="anonymous"
 ></script>
 <script type="text/javascript">
+callMyAPI();
 function callMyAPI(){
     $.ajax({
   	 url: '/api/v1/dept',
@@ -56,6 +71,79 @@ function callMyAPI(){
   	 }
     });
 }
-callMyAPI();
+
+function join(){
+	var deptno = $("#deptno").val();
+	var dname = $("#dname").val();
+	var loc = $("#loc").val();
+	
+	var jsonData = {
+			"deptno" : deptno,
+			"dname" : dname,
+			"loc" : loc
+	};
+	
+	$.ajax({
+    	  url: '/api/v1/dept/join',
+    	  type: 'POST',
+    	  contentType: 'application/json',
+    	  data : JSON.stringify(jsonData),
+    	  dataType: 'json',
+    	  success: function (response){
+    		  alert("부서 추가 완료!");
+    		  location.reload();
+    	  }
+      })
+}
+
+function doDelete() {
+	var deptno = $("#d_deptno").val();
+	if(deptno == ''){
+		alert("부서번호를 입력해주세요");
+		$("#d_deptno").focus();
+		return false;
+	}
+	if(deptno < 1 || deptno > 9999){
+		alert("잘못된 부서번호 입니다.");
+		$("#d_deptno").focus();
+		$("#d_deptno").val('');
+		return false;
+	}
+	
+	$.ajax({
+  	  url: '/api/v1/dept/'+deptno,
+  	  type: 'DELETE',
+  	  dataType: 'json',
+  	  success: function (response){
+  		  alert("부서 삭제 완료!");
+  		  location.reload();
+  	  }
+    })
+		
+}
+
+function doUpdate(){
+	var deptno = $("#u_deptno").val();
+	var dname = $("#u_dname").val();
+	var loc = $("#u_loc").val();
+	
+	var jsonData = {
+			"deptno" : deptno,
+			"dname" : dname,
+			"loc" : loc
+	};
+	
+	$.ajax({
+    	  url: '/api/v1/dept',
+    	  type: 'PATCH',
+    	  contentType: 'application/json',
+    	  data : JSON.stringify(jsonData),
+    	  dataType: 'json',
+    	  success: function (response){
+    		  alert("부서 수정 완료!");
+    		  location.reload();
+    	  }
+      })
+}
 </script>
 </html>

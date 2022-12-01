@@ -28,4 +28,43 @@
 		)
 	</insert>
 	
+	<insert id="insertDept">
+		INSERT INTO dept
+		(
+			deptno,
+			dname,
+			loc
+		)
+		VALUES
+		(
+			#{deptno},
+			#{dname},
+			#{loc}
+		)
+	</insert>
+	
+	<delete id="deleteDept">
+		DELETE FROM dept WHERE deptno = #{deptno}
+	</delete>
+	
+	<delete id="deleteEmp">
+		DELETE FROM emp WHERE empno = #{empno}
+	</delete>
+	
+	<update id="updateEmp">
+		UPDATE emp
+		SET 
+			sal = #{sal},
+			job = #{job} 
+		WHERE empno = #{empno}
+	</update>
+	
+	<update id="updateDept">
+		UPDATE dept 
+		SET 
+			dname = #{dname},
+			loc = #{loc} 
+		WHERE deptno = #{deptno}
+	</update>
+	
 </mapper>

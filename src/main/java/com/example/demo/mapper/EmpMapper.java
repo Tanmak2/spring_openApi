@@ -27,5 +27,51 @@ public interface EmpMapper {
 	 */
 	List<DeptVO> selectDept(); 
 	
+	/**
+	 * @Since : 2022. 12. 1.
+	 * @Author : mr.Yun
+	 * @Return : int
+	 * @Comment : 사원 추가
+	 */
 	int insertEmp(EmpVO vo);
+	
+	/**
+	 * @Since : 2022. 12. 1.
+	 * @Author : mr.Yun
+	 * @Return : int
+	 * @Comment : 부서 추가
+	 */
+	int insertDept(DeptVO vo);
+	
+	/**
+	 * @Since : 2022. 12. 1.
+	 * @Author : mr.Yun
+	 * @Return : int
+	 * @Comment : 사원 삭제
+	 */
+	int deleteEmp(int empno);
+	
+	/**
+	 * @Since : 2022. 12. 1.
+	 * @Author : mr.Yun
+	 * @Return : int
+	 * @Comment : 부서 삭제
+	 */
+	int deleteDept(int deptno);
+	
+	/**
+	 * @Since : 2022. 12. 1.
+	 * @Author : mr.Yun
+	 * @Return : int
+	 * @Comment : 사원 정보 수정
+	 */
+	int updateEmp(EmpVO vo);
+	
+	/**
+	 * @Since : 2022. 12. 1.
+	 * @Author : mr.Yun
+	 * @Return : int
+	 * @Comment : 부서 정보 수정
+	 */
+	int updateDept(DeptVO vo);
 }

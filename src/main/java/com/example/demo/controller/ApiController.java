@@ -6,7 +6,9 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -107,6 +109,31 @@ public class ApiController {
 	@PostMapping("api/v1/emp/join")
 	public int callEmpJoin(@RequestBody EmpVO emp) {
 		return empMapper.insertEmp(emp);
+	}
+	
+	@DeleteMapping("/api/v1/emp/{empno}")
+	public int callEmpDelete(@PathVariable int empno) {
+		return empMapper.deleteEmp(empno);
+	}
+	
+	@PostMapping("/api/v1/dept/join")
+	public int callDeptJoin(@RequestBody DeptVO dept) {
+		return empMapper.insertDept(dept);
+	}
+	
+	@DeleteMapping("/api/v1/dept/{deptno}")
+	public int callDeptDelete(@PathVariable int deptno) {
+		return empMapper.deleteDept(deptno);
+	}
+	
+	@PatchMapping("/api/v1/emp")
+	public int callEmpUpdate(@RequestBody EmpVO emp) {
+		return empMapper.updateEmp(emp);
+	}
+	
+	@PatchMapping("/api/v1/dept")
+	public int callDeptUpdate(@RequestBody DeptVO dept) {
+		return empMapper.updateDept(dept);
 	}
 	
 }

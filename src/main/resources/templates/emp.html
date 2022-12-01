@@ -24,10 +24,20 @@ tr:nth-child(even) {
 <body>
 	<h2>안녕하세요 여기는 EMP 화면 입니다.</h2>
 	<input id="empno" type="text" placeholder="사원번호를 입력하세요.">
-	<input id="ename" type="text" placeholder="사원이름를 입력하세요.">
-	<input id="job" type="text" placeholder="사원직책를 입력하세요.">
+	<input id="ename" type="text" placeholder="사원이름을 입력하세요.">
+	<input id="job" type="text" placeholder="사원직책을 입력하세요.">
 	<input id="sal" type="text" placeholder="사원급여를 입력하세요.">
 	<button type="button" onclick="join()">사원 추가</button>
+	
+	<h3>사원삭제</h3>
+	<input type="text" id="d_empno" placeholder="사원번호를 입력해주세요">
+	<button type="button" onclick="doDelete()">사원 삭제</button>
+	
+	<h3>사원수정</h3>
+	<input id="u_empno" type="text" placeholder="사원번호를 입력하세요.">
+	<input id="u_job" type="text" placeholder="사원직책을 입력하세요.">
+	<input id="u_sal" type="text" placeholder="사원급여를 입력하세요.">
+	<button type="button" onclick="doUpdate()">사원 수정</button>
 	
 	
 	<table id="emp">
@@ -46,6 +56,7 @@ integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI="
 crossorigin="anonymous"
 ></script>
 <script type="text/javascript">
+callMyAPI();
 function callMyAPI(){
     $.ajax({
   	 url: '/api/v1/emp',
@@ -69,7 +80,6 @@ function callMyAPI(){
   	 }
     });
 }
-callMyAPI();
 
 
 function join(){
@@ -92,8 +102,57 @@ function join(){
     	  data : JSON.stringify(jsonData),
     	  dataType: 'json',
     	  success: function (response){
-    		  console.log(response);
     		  alert("사원 추가 완료!");
+    		  location.reload();
+    	  }
+      })
+}
+
+function doDelete() {
+	var empno = $("#d_empno").val();
+	if(empno == ''){
+		alert("사원번호를 입력해주세요");
+		$("#d_empno").focus();
+		return false;
+	}
+	if(empno < 1 || empno > 9999){
+		alert("잘못된 사원번호 입니다.");
+		$("#d_empno").focus();
+		$("#d_empno").val('');
+		return false;
+	}
+	
+	$.ajax({
+  	  url: '/api/v1/emp/'+empno,
+  	  type: 'DELETE',
+  	  dataType: 'json',
+  	  success: function (response){
+  		  alert("사원 삭제 완료!");
+  		  location.reload();
+  	  }
+    })
+		
+}
+
+function doUpdate(){
+	var empno = $("#u_empno").val();
+	var job = $("#u_job").val();
+	var sal = $("#u_sal").val();
+	
+	var jsonData = {
+			"empno" : empno,
+			"job" : job,
+			"sal" : sal
+	};
+	
+	$.ajax({
+    	  url: '/api/v1/emp',
+    	  type: 'PATCH',
+    	  contentType: 'application/json',
+    	  data : JSON.stringify(jsonData),
+    	  dataType: 'json',
+    	  success: function (response){
+    		  alert("사원 수정 완료!");
     		  location.reload();
     	  }
       })
