@@ -64,7 +64,7 @@
 		SET 
 			dname = #{dname},
 			loc = #{loc} 
-		WHERE deptno = #{deptno}
+		WHERE deptno = #{deptno}	
 	</update>
 	
 </mapper>
