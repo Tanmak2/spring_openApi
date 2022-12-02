@@ -67,4 +67,40 @@
 		WHERE deptno = #{deptno}	
 	</update>
 	
+	<!-- 회원가입 SQL 작성 -->
+	<insert id="insertUsers">
+		INSERT INTO users
+		(
+			id,
+			pw,
+			name
+		)
+		VALUES
+		(
+			#{id},
+			#{pw},
+			#{name}
+		)
+	</insert>
+	
+	<select id="selectUsersFindById" resultType="integer">
+		SELECT COUNT(*) FROM users WHERE id = #{id} AND pw = #{pw}
+	</select>
+	
+	<select id="selectUsers" resultType="com.example.demo.vo.UsersVO">
+		SELECT * FROM users
+	</select>
+	
+	<delete id="deleteUsers">
+		DELETE FROM users WHERE id = #{id}
+	</delete>
+	
+	<update id="updateUsers">
+		UPDATE users
+		SET
+			pw = #{pw},
+			name = #{name}
+		WHERE id = #{id}
+	</update>
+	
 </mapper>

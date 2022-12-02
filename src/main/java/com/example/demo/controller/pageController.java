@@ -47,4 +47,12 @@ public class pageController {
 	public String callDeptPage() {
 		return "dept";
 	}
+	@GetMapping("/login3")
+	public String callLogin3Page() {
+		return "login3";
+	}
+	@GetMapping("/users")
+	public String callUsersPage() {
+		return "users";
+	}
 }
