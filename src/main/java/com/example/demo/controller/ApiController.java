@@ -26,6 +26,8 @@ import com.example.demo.vo.login2;
 @RestController
 public class ApiController {
 	
+	final String ROOT_URL = "/api/v1";
+	
 	//@Autowired : Spring에서 객체를 관리함 (IoC : Inversion of Control 제어 역전)
 	@Autowired
 	ApiService apiService;
@@ -157,5 +159,10 @@ public class ApiController {
 	@PatchMapping("/api/v1/users")
 	public int callUsersUpdate(@RequestBody UsersVO vo) {
 		return empMapper.updateUsers(vo);
+	}
+	
+	@GetMapping("/api/v1/users/{id}")
+	public Boolean callUser(@PathVariable String id) {
+		return apiService.checkUser(id);
 	}
 }
