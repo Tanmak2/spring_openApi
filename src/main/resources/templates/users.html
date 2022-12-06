@@ -24,6 +24,8 @@ tr:nth-child(even) {
 <body>
 	<h3>사용자 페이지입니다.</h3>
 	
+	<h4 th:text="${name}+'님! 환영합니다.'"></h4>
+	
 	<h3>유저삭제</h3>
 	<input type="text" id="d_id" placeholder="아이디를 입력해주세요">
 	<button type="button" onclick="doDelete()">유저 삭제</button>

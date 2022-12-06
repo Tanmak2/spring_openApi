@@ -115,4 +115,12 @@ public interface EmpMapper {
 	 * @Comment : 회원 수정
 	 */
 	int updateUsers(UsersVO vo);
+	
+	/**
+	 * @Since : 2022. 12. 6.
+	 * @Author : mr.Yun
+	 * @Return : UsersVO
+	 * @Comment : 회원인지 아닌지 체크(암호화된 비밀번호)
+	 */
+	UsersVO selectUsersPassword(UsersVO vo);
 }

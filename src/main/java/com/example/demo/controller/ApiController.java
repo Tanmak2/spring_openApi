@@ -5,7 +5,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -34,6 +38,9 @@ public class ApiController {
 	
 	@Autowired
 	EmpMapper empMapper;
+	
+	@Autowired
+	PasswordEncoder passwordEncoder;
 
 	@GetMapping("/api/v1/sample")
 	public List<String> callData(){
@@ -141,12 +148,37 @@ public class ApiController {
 	
 	@PostMapping("/api/v1/users")
 	public int callUsersInsert(@RequestBody UsersVO users) {
+		String password = users.getPw();
+		password = passwordEncoder.encode(password);
+		users.setPw(password);
 		return empMapper.insertUsers(users);
 	}
 	
+	//세션 : 서버(자바 서블릿 컨테이너)에 임시적으로 데이터를 저장함
 	@PostMapping("/api/v1/login")
-	public int callUsersLogin(@RequestBody UsersVO users) {
-		return empMapper.selectUsersFindById(users);
+	public UsersVO callUsersLogin(@RequestBody UsersVO users, HttpServletRequest req) {
+		
+		String password = users.getPw();
+		
+		users = empMapper.selectUsersPassword(users);
+		if(users == null) {
+			users = new UsersVO();
+			users.setUser(false);
+			return users;
+		}
+		String DBpassword = users.getPw();
+		
+		boolean isUser = passwordEncoder.matches(password, DBpassword);
+		if(!isUser) {
+			users.setUser(false);
+			return users;
+		}
+		
+		HttpSession session = req.getSession();
+		session.setAttribute("name", users.getName());
+		
+		users.setUser(true);
+		return users;
 	}
 	@GetMapping("api/v1/users")
 	public List<UsersVO> callUsers(){

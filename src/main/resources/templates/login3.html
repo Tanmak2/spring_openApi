@@ -59,7 +59,8 @@
 			dataType : 'json',
 			success : function(response) {
 				console.log(response);
-				if (response == 1) {
+				if (response.user) {
+					alert(response.name + "님! 환영합니다🎉");
 					location.href = "/users";
 				} else {
 					alert("아이디 혹은 비밀번호가 틀렸습니다.");
